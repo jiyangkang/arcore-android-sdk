@@ -512,6 +512,8 @@ public class SharedCameraActivity extends AppCompatActivity
       previewCaptureRequestBuilder =
           cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_RECORD);
 
+      previewCaptureRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_OFF);
+
       // Build surfaces list, starting with ARCore provided surfaces.
       List<Surface> surfaceList = sharedCamera.getArCoreSurfaces();
 
@@ -595,12 +597,17 @@ public class SharedCameraActivity extends AppCompatActivity
 
       // Enable auto focus mode while ARCore is running.
       Config config = sharedSession.getConfig();
-      config.setFocusMode(Config.FocusMode.AUTO);
+
+      //jiyk
+//      config.setFocusMode(Config.FocusMode.AUTO);
+      config.setFocusMode(Config.FocusMode.FIXED);
       sharedSession.configure(config);
     }
 
     // Store the ARCore shared camera reference.
     sharedCamera = sharedSession.getSharedCamera();
+
+
 
     // Store the ID of the camera used by ARCore.
     cameraId = sharedSession.getCameraConfig().getCameraId();
